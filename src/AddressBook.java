@@ -17,7 +17,7 @@ class AddressBook implements ContactOperations {
 
     // Initialize the variables
     private String name;
-    private final List<Contact> contacts;
+    private List<Contact> contacts;
 
     public AddressBook(String name) {
         this.name = name;
