@@ -19,7 +19,7 @@ class Contact {
         this.email = email;
     }
 
-    // Getters and Setters
+    // Getters
     public String getFirstName() {
         return firstName;
     }
