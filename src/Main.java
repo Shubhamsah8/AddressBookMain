@@ -5,6 +5,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the address book name: ");
+    
+        AddressBook addressBook = new AddressBook(addressbookName);
         String addressbookName = scanner.nextLine();
         System.out.println("Enter First name: ");
         String firstName = scanner.nextLine();
@@ -23,7 +25,6 @@ public class Main {
         System.out.println("Enter the email: ");
         String email = scanner.nextLine();
         
-        AddressBook addressBook = new AddressBook(addressbookName);
         Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
         addressBook.addContact(contact);
 
