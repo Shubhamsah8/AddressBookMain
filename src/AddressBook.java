@@ -36,5 +36,10 @@ class AddressBook {
         }
     }
 
+    //Delete Contact by name
+    public void deleteContact(String fullName){
+        Contact.deleteContact(contacts, fullName);
+    }
 }
+    
 
