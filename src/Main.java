@@ -4,7 +4,6 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the address book name: ");
     
         AddressBook addressBook = new AddressBook(addressbookName);
         String addressbookName = scanner.nextLine();
@@ -26,7 +25,13 @@ public class Main {
         String email = scanner.nextLine();
         
         Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-        addressBook.addContact(contact);
+        addressBook.addContact(newContact);
+        addressBook.displayContacts();
 
-        addressBook.listContact();
+        //Editng the contact
+
+        System.out.println("Enter your full name to edit: ");
+        String fullNameToEdit = scanner.nextLine();
+
+        if(fullNameToEdit
 }
