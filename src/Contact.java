@@ -50,13 +50,6 @@ class Contact {
         System.out.println("Phone Number: "+getPhoneNumber());
         System.out.println("Email: "+getEmail());
     }
-    //Edit the existing details
-    public void editDetails(String address, String city, String state, String zip, String phoneNumber, String email){
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+    
 }
 
