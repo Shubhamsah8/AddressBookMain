@@ -58,4 +58,19 @@ class Contact {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    //Delete the details
+    public void deleteContact(ArrayList<Contact> contacts, String fullName){
+        for(Contact contact: contacts){
+            if(contact.getFullName().equals(fullName)){
+                contacts.remove(contact);
+                System.out.println("Contact Deleted!");
+                return true;
+            }
+        }
+        System.out.println("Contact not found with the given name");
+        return false;
+    }
 }
+
