@@ -43,4 +43,13 @@ class Contact {
     public String email(){
         return email;
     }
+
+    //Edit the existing details
+    public void editDetails(String address, String city, String state, String zip, String phoneNumber, String email){
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
 }
