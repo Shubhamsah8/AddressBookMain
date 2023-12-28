@@ -6,7 +6,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
     
         AddressBook addressBook = new AddressBook(addressbookName);
-        String addressbookName = scanner.nextLine();
         System.out.println("Enter First name: ");
         String firstName = scanner.nextLine();
         System.out.println("Enter Last name: ");
@@ -32,6 +31,23 @@ public class Main {
 
         System.out.println("Enter your full name to edit: ");
         String fullNameToEdit = scanner.nextLine();
+        System.out.println("Enter First name: ");
+        System.out.println("Enter the address: ");
+        String newAddress = scanner.nextLine();
+        System.out.println("Enter the city: ");
+        String newCity = scanner.nextLine();
+        System.out.println("Enter the state: ");
+        String newState = scanner.nextLine();
+        System.out.println("Enter the zip: ");
+        String newZip = scanner.nextLine();
+        System.out.println("Enter the phone number: ");
+        String newPhoneNumber = scanner.nextLine();
+        System.out.println("Enter the email: ");
+        String newEmail = scanner.nextLine();
 
-        if(fullNameToEdit
+        addressBook.editContact(fullNameToEdit, newAddress, newCity, newState, newZip, newPhoneNumber, newEmail);
+
+        //Displaying all contacts after editing
+        System.out.println("All contacts after editing:");
+        addressBook.displayContacts();
 }
