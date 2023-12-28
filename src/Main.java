@@ -18,6 +18,8 @@ public class Main {
         String zip = scanner.nextLine();
         System.out.println("Enter the phone number: ");
         String phoneNumber = scanner.nextLine();
+        System.out.println("Enter the email: ");
+        String email = scanner.nextLine();
         
-        Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber);
+        Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
 }
