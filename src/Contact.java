@@ -20,35 +20,42 @@ class Contact {
     }
 
     // Getters
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return firstName+" "+lastName;
     }
 
-    public String getLastName() {
-        return lastName;
+     public String address(){
+        return address;
     }
 
-    // Copy method to copy the contact from Contact class
-    public void copyFrom(Contact other) {
-        this.firstName = other.firstName;
-        this.lastName = other.lastName;
-        this.address = other.address;
-        this.city = other.city;
-        this.state = other.state;
-        this.zip = other.zip;
-        this.phoneNumber = other.phoneNumber;
-        this.email = other.email;
+    public String zip(){
+        return zip;
     }
 
-    // Override method toString for formatting the string
-    @Override
-    public String toString() {
-        return "Contact: " + getFirstName() +" "+getLastName()+
-                "\nAddress: " + address +
-                "\nCity: " + city +
-                "\nState: " + state +
-                "\nZip: " + zip +
-                "\nPhone Number: " + phoneNumber +
-                "\nEmail: " + email;
+    public String phoneNumber(){
+        return phoneNumber;
     }
+
+    public String email(){
+        return email;
+    }
+
+    
+    public void displayDetails(){
+        System.out.println("Name: "+getFullName());
+        System.out.println("Address: "+getAddress());
+        System.out.println("City: "+getCity());
+        System.out.println("State: "+getState());
+        System.out.println("Zip: "+getZip());
+        System.out.println("Phone Number: "+getPhoneNumber());
+        System.out.println("Email: "+getEmail());
+    }
+    //Edit the existing details
+    public void editDetails(String address, String city, String state, String zip, String phoneNumber, String email){
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
 }
