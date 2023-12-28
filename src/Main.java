@@ -49,4 +49,7 @@ public class Main {
         //Displaying all contacts after editing
         System.out.println("All contacts after editing:");
         addressBook.displayContacts();
+
+        //Delete a contact
+        
 }
