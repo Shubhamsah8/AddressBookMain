@@ -28,27 +28,19 @@ class Contact {
         return lastName;
     }
 
-    // Copy method to copy the contact from Contact class
-    public void copyFrom(Contact other) {
-        this.firstName = other.firstName;
-        this.lastName = other.lastName;
-        this.address = other.address;
-        this.city = other.city;
-        this.state = other.state;
-        this.zip = other.zip;
-        this.phoneNumber = other.phoneNumber;
-        this.email = other.email;
+        public String address(){
+        return address;
     }
 
-    // Override method toString for formatting the string
-    @Override
-    public String toString() {
-        return "Contact: " + getFirstName() +" "+getLastName()+
-                "\nAddress: " + address +
-                "\nCity: " + city +
-                "\nState: " + state +
-                "\nZip: " + zip +
-                "\nPhone Number: " + phoneNumber +
-                "\nEmail: " + email;
+    public String zip(){
+        return zip;
+    }
+
+    public String phoneNumber(){
+        return phoneNumber;
+    }
+
+    public String email(){
+        return email;
     }
 }
