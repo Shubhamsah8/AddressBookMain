@@ -7,8 +7,6 @@ interface ContactOperations {
 
     void editContact(String name, Contact newContact);
 
-    void deleteContact(String name);
-
     List<Contact> listContacts();
 }
 
@@ -35,17 +33,6 @@ class AddressBook implements ContactOperations {
         Contact existingContact = findContactByName(name);
         if (existingContact != null) {
             existingContact.copyFrom(newContact);
-        } else {
-            System.out.println("Contact not found.");
-        }
-    }
-
-    @Override
-    public void deleteContact(String name) {
-        Contact contact = findContactByName(name);
-        if (contact != null) {
-            contacts.remove(contact);
-            System.out.println("Contact Removed Successfully");
         } else {
             System.out.println("Contact not found.");
         }
