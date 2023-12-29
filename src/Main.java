@@ -39,6 +39,12 @@ public class Main {
                     String contactName = scanner.next();
                     addressBook.deleteContact(contactName);
                     break;
+
+                case "ADD_MULTIPLE_CONTACTS":
+                    // Add multiple persons
+                    List<Contact> newContacts = createMultipleContactsFromUserInput(scanner);
+                    addressBook.addMultipleContacts(newContacts);
+                    break;
                     
                 case "QUIT":
                     System.out.println("Goodbye!");
@@ -50,5 +56,26 @@ public class Main {
                     break;
             }
         }
+
+        // Method to add multiple contacts
+        private static List<Contact> createMultipleContactsFromUserInput(Scanner scanner) {
+        System.out.println("Enter details for multiple contacts. Enter 'DONE' when finished.");
+        List<Contact> newContacts = new ArrayList<>();
+
+        while (true) {
+            System.out.print("Enter 'DONE' to finish, otherwise enter contact details: ");
+            String input = scanner.next();
+
+            if (input.equalsIgnoreCase("DONE")) {
+                break;
+            }
+
+            Contact contact = addressBook.createContactFromUserInput(scanner);
+            newContacts.add(contact);
+        }
+
+        return newContacts;
+    }
+
     }
 }
