@@ -85,4 +85,15 @@ class Contact {
         this.email = email;
     }
     
+    @Override
+    public String toString(){
+        return "Contact: "+getFirstName()+" "+getLastName()+
+                "\nAddress: "+address+
+                "\nCity: "+city+
+                "\nState: "+state+
+                "\nZip: "+zip+
+                "\nPhone Number: "+phoneNumber+
+                "\nEmail: "+email;
+    }
+
 }
