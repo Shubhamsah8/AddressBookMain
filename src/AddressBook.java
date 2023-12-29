@@ -82,8 +82,8 @@ class AddressBook implements ContactOperations {
         return null;
     }
 
-     public List<Contacts> listContacts(){
+    public List<Contact> listContacts(){
         return new ArrayList<>(contacts);
     }
-}
 
+}
