@@ -9,7 +9,7 @@ interface ContactOperations {
 
     void deleteContact(String name);
 
-    List<Contact> listContacts();
+    void addMultipleContacts(List<Contact> newContacts);
 }
 
 // Class AddressBook that implements the interface
@@ -52,9 +52,12 @@ class AddressBook implements ContactOperations {
     }
 
     @Override
-    public List<Contact> listContacts() {
-        return new ArrayList<>(contacts);
+    //Add Multiple Contacts
+    public void addMultipleContacts(List<Contact> newContacts) {
+        contacts.addAll(newContacts);
+        System.out.println("Multiple contacts added successfully.");
     }
+
 
     public String getName() {
         return name;
