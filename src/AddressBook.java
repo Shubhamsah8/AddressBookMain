@@ -34,7 +34,16 @@ class AddressBook implements ContactOperations {
     public void editContact(String name, Contact newContact) {
         Contact existingContact = findContactByName(name);
         if (existingContact != null) {
-            existingContact.copyFrom(newContact);
+            existingContact.setFirstName(newContact.getFirstName());
+            existingContact.setLastName(newContact.getLastName());
+            existingContact.setAddress(newContact.getAddress());
+            existingContact.setCity(newContact.getCity());
+            existingContact.setState(newContact.getState());
+            existingContact.setZip(newContact.getZip());
+            existingContact.setPhoneNumber(newContact.getPhoneNumber());
+            existingContact.setEmail(newContact.getEmail());
+
+            System.out.println("Contact updated successfully.");
         } else {
             System.out.println("Contact not found.");
         }
