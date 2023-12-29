@@ -1,9 +1,27 @@
-// Main Class
-import java.util.*;
+
+interface ContactOperations {
+    void addContact(Contact contact);
+}
+
+class AddressBook implements ContactOperations {
+    private List<Contact> contacts;
+
+    // Constructor
+    public AddressBook() {
+        this.contacts = new ArrayList<>();
+    }
+
+    @Override
+    public void addContact(Contact contact) {
+        contacts.add(contact);
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // Creating an address book
+        AddressBook addressBook = new AddressBook();
+
         System.out.println("Enter First name: ");
         String firstName = scanner.nextLine();
         System.out.println("Enter Last name: ");
@@ -20,6 +38,11 @@ public class Main {
         String phoneNumber = scanner.nextLine();
         System.out.println("Enter the email: ");
         String email = scanner.nextLine();
-        
-        Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+        Contact contact = createContact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+        addressBook.addContact(contact);
+
+        // Print the details
+        System.out.println(addressBook.listContacts());
+    }
+
 }
