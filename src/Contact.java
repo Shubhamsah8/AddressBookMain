@@ -8,6 +8,7 @@ class Contact {
     private String phoneNumber;
     private String email;
 
+    // Constructor
     public Contact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,21 +28,4 @@ class Contact {
     public String getLastName() {
         return lastName;
     }
-
-    public String address(){
-        return address;
-    }
-
-    public String zip(){
-        return zip;
-    }
-
-    public String phoneNumber(){
-        return phoneNumber;
-    }
-
-    public String email(){
-        return email;
-    }
-
 }
