@@ -6,6 +6,8 @@ interface ContactOperations {
     void editContact(String name, Contact newContact);
 
     void delteContact(String name);
+
+    void addMultipleContacts(List<Contact> newContacts);
 }
 
 class AddressBook implements ContactOperations {
@@ -52,6 +54,12 @@ class AddressBook implements ContactOperations {
         }
     }
 
+    @Override
+    //Add Multiple Contacts
+    public void addMultipleContacts(List<Contact> newContacts) {
+        contacts.addAll(newContacts);
+        System.out.println("Multiple contacts added successfully.");
+    }
 
     public Contact findContactByName(String name) {
         for (Contact contact : contacts) {
