@@ -1,40 +1,51 @@
 import java.util.*;
 
-// Class AddressBook that implements the interface
-class AddressBook {
+interface ContactOperations {
+    void addContact(Contact contact);
 
-    // Initialize the variables
+    void editContact(String name, Contact newContact);
+}
+
+class AddressBook implements ContactOperations {
     private List<Contact> contacts;
 
+    // Constructor
     public AddressBook() {
         this.contacts = new ArrayList<>();
     }
 
+    @Override
     public void addContact(Contact contact) {
         contacts.add(contact);
     }
 
-    public void editContact(String fullName, String address, String city, String state, String zip, String phoneNumber, String email){
-        boolean contactFound = false;
-        for(Contact contact: contacts){
-            if(contact.getFullName().equals(fullName)){
-                contact.editDetails(address, city, state, zip, phoneNumber, email);
-                System.out.println("Contact Updated Successfully!);
-                contactFound = true;
-                break;
+    @Override
+    public void editContact(String name, Contact newContact) {
+        Contact existingContact = findContactByName(name);
+        if (existingContact != null) {
+           
+            existingContact.setFirstName(newContact.getFirstName());
+            existingContact.setLastName(newContact.getLastName());
+            existingContact.setAddress(newContact.getAddress());
+            existingContact.setCity(newContact.getCity());
+            existingContact.setState(newContact.getState());
+            existingContact.setZip(newContact.getZip());
+            existingContact.setPhoneNumber(newContact.getPhoneNumber());
+            existingContact.setEmail(newContact.getEmail());
+
+            System.out.println("Contact updated successfully.");
+        } else {
+            System.out.println("Contact not found.");
+        }
+    }
+
+
+    public Contact findContactByName(String name) {
+        for (Contact contact : contacts) {
+            if (contact.getFirstName().equalsIgnoreCase(name) || contact.getLastName().equalsIgnoreCase(name)) {
+                return contact;
             }
         }
-        if(!contactFound){
-            System.out.println("Contact not found with the given name");
+        return null;
     }
-    
-    //Display the contacts
-
-    public void displayAllContacts(){
-        for(Contact contact: contacts){
-            contact.displayDetails();
-        }
-    }
-
 }
-
