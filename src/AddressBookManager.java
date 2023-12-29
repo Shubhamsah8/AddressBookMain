@@ -1,4 +1,4 @@
-// Class AddressBookManager to create and manage address book using hashmap(i.e keys and values)
+
 
 import java.util.*;
 class AddressBookManager {
@@ -11,7 +11,7 @@ class AddressBookManager {
     }
 
     // Method to put things in address book with name
-     public void addAddressBook(String name) {
+    public void addAddressBook(String name) {
         if (!addressBooks.containsKey(name)) {
             AddressBook addressBook = new AddressBook(name);
             addressBooks.put(name, addressBook);
@@ -31,4 +31,3 @@ class AddressBookManager {
         System.out.println("Address Books: " + addressBooks.keySet());
     }
 }
-
