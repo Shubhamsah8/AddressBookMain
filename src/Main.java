@@ -9,7 +9,7 @@ public class Main {
 
         //Using while loop for the desired inputs
         while (true) {
-            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, QUIT): ");
+            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, QUIT): ");
             String action = scanner.next();
 
             // Switch case 
@@ -52,7 +52,7 @@ public class Main {
         AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
 
         if (addressBook != null) {
-            Contact contact = createContactFromUserInput(scanner);
+            Contact contact = addressBook.createContactFromUserInput(scanner);
             addressBook.addContact(contact);
         } else {
             System.out.println("Address book not found.");
@@ -70,7 +70,7 @@ public class Main {
             Contact existingContact = addressBook.findContactByName(contactName);
 
             if (existingContact != null) {
-                Contact newContact = createContactFromUserInput(scanner);
+                Contact newContact = addressBook.createContactFromUserInput(scanner);
                 addressBook.editContact(contactName, newContact);
                 System.out.println("Contact updated successfully.");
             } else {
@@ -112,25 +112,4 @@ public class Main {
         }
     }
 
-    private static Contact createContactFromUserInput(Scanner scanner) {
-        System.out.println("Enter contact details: ");
-        System.out.print("First Name: ");
-        String firstName = scanner.next();
-        System.out.print("Last Name: ");
-        String lastName = scanner.next();
-        System.out.print("Address: ");
-        String address = scanner.next();
-        System.out.print("City: ");
-        String city = scanner.next();
-        System.out.print("State: ");
-        String state = scanner.next();
-        System.out.print("Zip: ");
-        String zip = scanner.next();
-        System.out.print("Phone Number: ");
-        String phoneNumber = scanner.next();
-        System.out.print("Email: ");
-        String email = scanner.next();
-
-        return new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-    }
 }
