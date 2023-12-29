@@ -78,7 +78,7 @@ class Contact {
     }
 
     public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber;
+        this.phoneNumber= phoneNumber;
     }
 
     public void setEmail(String email){
