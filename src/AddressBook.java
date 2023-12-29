@@ -82,26 +82,8 @@ class AddressBook implements ContactOperations {
         return null;
     }
 
-    private Contact createContactFromUserInput(Scanner scanner) {
-        System.out.println("Enter contact details: ");
-        System.out.print("First Name: ");
-        String firstName = scanner.next();
-        System.out.print("Last Name: ");
-        String lastName = scanner.next();
-        System.out.print("Address: ");
-        String address = scanner.next();
-        System.out.print("City: ");
-        String city = scanner.next();
-        System.out.print("State: ");
-        String state = scanner.next();
-        System.out.print("Zip: ");
-        String zip = scanner.next();
-        System.out.print("Phone Number: ");
-        String phoneNumber = scanner.next();
-        System.out.print("Email: ");
-        String email = scanner.next();
-
-        return new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+     public List<Contacts> listContacts(){
+        return new ArrayList<>(contacts);
     }
 }
 
