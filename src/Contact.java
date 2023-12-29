@@ -8,6 +8,7 @@ class Contact {
     private String phoneNumber;
     private String email;
 
+    // Constructor
     public Contact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,57 +21,68 @@ class Contact {
     }
 
     // Getters
-    public String getName() {
-        return firstName+" "+lastName;
+    public String getFirstName() {
+        return firstName;
     }
 
-     public String address(){
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress(){
         return address;
     }
 
-    public String zip(){
+    public String getCity(){
+        return city;
+    }
+
+    public String getState(){
+        return state;
+    }
+
+    public String getZip(){
         return zip;
     }
 
-    public String phoneNumber(){
+    public String getPhoneNumber(){
         return phoneNumber;
     }
 
-    public String email(){
+    public String getEmail(){
         return email;
     }
 
-    
-    public void displayDetails(){
-        System.out.println("Name: "+getFullName());
-        System.out.println("Address: "+getAddress());
-        System.out.println("City: "+getCity());
-        System.out.println("State: "+getState());
-        System.out.println("Zip: "+getZip());
-        System.out.println("Phone Number: "+getPhoneNumber());
-        System.out.println("Email: "+getEmail());
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
     }
-    //Edit the existing details
-    public void editDetails(String address, String city, String state, String zip, String phoneNumber, String email){
+
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address){
         this.address = address;
+    }
+
+    public void setCity(String city){
         this.city = city;
+    }
+
+    public void setState(String state){
         this.state = state;
+    }
+
+    public void setZip(String zip){
         this.zip = zip;
-        this.phoneNumber = phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber= phoneNumber;
+    }
+
+    public void setEmail(String email){
         this.email = email;
     }
-
-    //Delete the details
-    public void deleteContact(ArrayList<Contact> contacts, String fullName){
-        for(Contact contact: contacts){
-            if(contact.getFullName().equals(fullName)){
-                contacts.remove(contact);
-                System.out.println("Contact Deleted!");
-                return true;
-            }
-        }
-        System.out.println("Contact not found with the given name");
-        return false;
-    }
+    
 }
-
