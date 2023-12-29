@@ -1,27 +1,40 @@
-import java.util.*;
+interface ContactOperations {
+    void addContact(Contact contact);
+}
 
-// Class AddressBook that implements the interface
-class AddressBook {
-
-    // Initialize the variables
+class AddressBook implements ContactOperations {
     private List<Contact> contacts;
 
+    // Constructor
     public AddressBook() {
         this.contacts = new ArrayList<>();
     }
 
+    // Overriding the method
+    @Override
     public void addContact(Contact contact) {
         contacts.add(contact);
     }
 
-    
-    //Display the contacts
+    private Contact createContactFromUserInput(Scanner scanner) {
+        System.out.println("Enter contact details: ");
+        System.out.print("First Name: ");
+        String firstName = scanner.next();
+        System.out.print("Last Name: ");
+        String lastName = scanner.next();
+        System.out.print("Address: ");
+        String address = scanner.next();
+        System.out.print("City: ");
+        String city = scanner.next();
+        System.out.print("State: ");
+        String state = scanner.next();
+        System.out.print("Zip: ");
+        String zip = scanner.next();
+        System.out.print("Phone Number: ");
+        String phoneNumber = scanner.next();
+        System.out.print("Email: ");
+        String email = scanner.next();
 
-    public void displayAllContacts(){
-        for(Contact contact: contacts){
-            contact.displayDetails();
-        }
+        return new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
     }
-
 }
-
