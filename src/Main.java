@@ -1,5 +1,5 @@
-// Main Class
 import java.util.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class Main {
             System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, QUIT): ");
             String action = scanner.next();
 
-            // Switch case 
+            // Switch case
             switch (action.toUpperCase()) {
                 case "ADD_ADDRESSBOOK":
                     System.out.print("Enter address book name: ");
@@ -21,6 +21,9 @@ public class Main {
                     break;
                 case "ADD_CONTACT":
                     addContactToAddressBook(scanner, addressBookManager);
+                    break;
+                case "ADD_MULTIPLE":
+                    addMultipleContactsToAddressBook(scanner, addressBookManager);
                     break;
                 case "EDIT_CONTACT":
                     editContactInAddressBook(scanner, addressBookManager);
@@ -55,6 +58,21 @@ public class Main {
             Contact contact = createContactFromUserInput(scanner);
             addressBook.addContact(contact);
         } else {
+            System.out.println("Address book not found.");
+        }
+    }
+
+    private static void addMultipleContactsToAddressBook(Scanner scanner, AddressBookManager addressBookManager){
+        System.out.println("Enter the address book name: ");
+        String addressBookName = scanner.next();
+        AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
+
+        if(addressBook != null){
+            List<Contact> newContacts = createMultipleContactsFromUserInput(scanner);
+
+            addressBook.addMultipleContacts(newContacts);
+        }
+        else{
             System.out.println("Address book not found.");
         }
     }
@@ -132,6 +150,25 @@ public class Main {
         String email = scanner.next();
 
         return new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+    }
+
+    private static List<Contact> createMultipleContactsFromUserInput(Scanner scanner) {
+        System.out.println("Enter details for multiple contacts. Enter 'DONE' when finished.");
+        List<Contact> newContacts = new ArrayList<>();
+
+        while (true) {
+            System.out.print("Enter 'DONE' to finish, otherwise enter contact details: ");
+            String input = scanner.next();
+
+            if (input.equalsIgnoreCase("DONE")) {
+                break;
+            }
+
+            Contact contact = createContactFromUserInput(scanner);
+            newContacts.add(contact);
+        }
+
+        return newContacts;
     }
 
 }
