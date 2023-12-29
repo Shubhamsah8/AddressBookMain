@@ -1,55 +1,54 @@
-// Main Class
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        AddressBook addressBook = new AddressBook(addressbookName);
-        System.out.println("Enter First name: ");
-        String firstName = scanner.nextLine();
-        System.out.println("Enter Last name: ");
-        String lastName = scanner.nextLine();
-        System.out.println("Enter the address: ");
-        String address = scanner.nextLine();
-        System.out.println("Enter the city: ");
-        String city = scanner.nextLine();
-        System.out.println("Enter the state: ");
-        String state = scanner.nextLine();
-        System.out.println("Enter the zip: ");
-        String zip = scanner.nextLine();
-        System.out.println("Enter the phone number: ");
-        String phoneNumber = scanner.nextLine();
-        System.out.println("Enter the email: ");
-        String email = scanner.nextLine();
-        
-        Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-        addressBook.addContact(newContact);
-        addressBook.displayContacts();
 
-        //Editng the contact
+        // Create an address book
+        AddressBook addressBook = new AddressBook();
 
-        System.out.println("Enter your full name to edit: ");
-        String fullNameToEdit = scanner.nextLine();
-        System.out.println("Enter First name: ");
-        System.out.println("Enter the address: ");
-        String newAddress = scanner.nextLine();
-        System.out.println("Enter the city: ");
-        String newCity = scanner.nextLine();
-        System.out.println("Enter the state: ");
-        String newState = scanner.nextLine();
-        System.out.println("Enter the zip: ");
-        String newZip = scanner.nextLine();
-        System.out.println("Enter the phone number: ");
-        String newPhoneNumber = scanner.nextLine();
-        System.out.println("Enter the email: ");
-        String newEmail = scanner.nextLine();
+        while (true) {
+            System.out.println("Enter action (ADD_CONTACT,EDIT_CONTACT, DELETE_CONTACT,QUIT): ");
+            String action = scanner.next();
 
-        addressBook.editContact(fullNameToEdit, newAddress, newCity, newState, newZip, newPhoneNumber, newEmail);
+            // Switch case
+            switch (action.toUpperCase()) {
+                    
+                case "ADD_CONTACT":
+                    
+                    Contact contact = addressBook.createContactFromUserInput(scanner);
+                    addressBook.addContact(contact);
+                    System.out.println("Contact added successfully.");
+                    break;
+                    
+                case "EDIT_CONTACT":
+                    // Edit an existing contact
+                    System.out.print("Enter contact name: ");
+                    String contactName = scanner.next();
+                    Contact existingContact = addressBook.findContactByName(contactName);
 
-        //Displaying all contacts after editing
-        System.out.println("All contacts after editing:");
-        addressBook.displayContacts();
+                    if (existingContact != null) {
+                        Contact newContact = addressBook.createContactFromUserInput(scanner);
+                        addressBook.editContact(contactName, newContact);
+                    } else {
+                        System.out.println("Contact not found.");
+                    }
+                    break;
 
-        //Delete a contact
-        
+                case "DELETE_CONTACT":
+                    // Delete the Contact
+                    System.out.print("Enter contact name: ");
+                    String contactName = scanner.next();
+                    addressBook.deleteContact(contactName);
+                    break;
+                    
+                case "QUIT":
+                    System.out.println("Goodbye!");
+                    scanner.close(); 
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid action. Please try again.");
+                    break;
+            }
+        }
+    }
 }
