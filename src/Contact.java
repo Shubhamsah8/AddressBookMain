@@ -8,6 +8,7 @@ class Contact {
     private String phoneNumber;
     private String email;
 
+    // Constructor
     public Contact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,27 +29,60 @@ class Contact {
         return lastName;
     }
 
-    // Copy method to copy the contact from Contact class
-    public void copyFrom(Contact other) {
-        this.firstName = other.firstName;
-        this.lastName = other.lastName;
-        this.address = other.address;
-        this.city = other.city;
-        this.state = other.state;
-        this.zip = other.zip;
-        this.phoneNumber = other.phoneNumber;
-        this.email = other.email;
+    public String getAddress(){
+        return address;
     }
 
-    // Override method toString for formatting the string
-    @Override
-    public String toString() {
-        return "Contact: " + getFirstName() +" "+getLastName()+
-                "\nAddress: " + address +
-                "\nCity: " + city +
-                "\nState: " + state +
-                "\nZip: " + zip +
-                "\nPhone Number: " + phoneNumber +
-                "\nEmail: " + email;
+    public String getCity(){
+        return city;
     }
+
+    public String getState(){
+        return state;
+    }
+
+    public String getZip(){
+        return zip;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address){
+        this.address = address;
+    }
+
+    public void setCity(String city){
+        this.city = city;
+    }
+
+    public void setState(String state){
+        this.state = state;
+    }
+
+    public void setZip(String zip){
+        this.zip = zip;
+    }
+
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber= phoneNumber;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+    
 }
