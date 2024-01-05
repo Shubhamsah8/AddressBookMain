@@ -67,8 +67,23 @@ public class Main {
         AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
 
         if (addressBook != null) {
-            Contact contact = createContactFromUserInput(scanner);
-            addressBook.addContact(contact);
+            Scanner newScanner = new Scanner(System.in);
+            System.out.println("Enter your first name: ");
+            String fname = newScanner.next();
+            System.out.println("Enter you last name: ");
+            String lname = newScanner.next();
+
+            Contact existingContact = addressBook.findContactByName(fname.toUpperCase());
+            Contact existingContact1 = addressBook.findContactByName(lname.toUpperCase());
+
+            if(existingContact == null && existingContact1 == null){
+                Contact contact = createContactFromUserInput(scanner);
+                addressBook.addContact(contact);
+            }
+            else{
+                System.out.println("Contact is already exist. Duplicate entry is not allowed!");
+            }
+
         } else {
             System.out.println("Address book not found.");
         }
@@ -154,8 +169,8 @@ public class Main {
 
         if (addressBook != null) {
             addressBook.listContacts().forEach(contact ->{
-                    System.out.println(contact);
-                    System.out.println("----------------------");
+                System.out.println(contact);
+                System.out.println("----------------------");
             });
 
         } else {
@@ -188,7 +203,7 @@ public class Main {
         System.out.print("Email: ");
         String email = scanner.next();
 
-        return new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+        return new Contact(firstName.toUpperCase(), lastName.toUpperCase(), address, city, state, zip, phoneNumber, email);
     }
 
     /**

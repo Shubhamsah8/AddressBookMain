@@ -62,7 +62,12 @@ class AddressBook implements ContactOperations {
      */
     @Override
     public void addContact(Contact contact) {
-        contacts.add(contact);
+        if(!contacts.contains(contact)){
+            contacts.add(contact);
+        }
+        else{
+            System.out.println("This User name is already exit. Duplicate entry is not allowed!");
+        }
     }
 
     /**
