@@ -1,13 +1,19 @@
 import java.util.*;
 
-
+/**
+ * The main class that serves as the entry point for the address book application.
+ */
 public class Main {
+    /**
+     * The main method that initiates the address book application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AddressBookManager addressBookManager = new AddressBookManager();
 
-
-        //Using while loop for the desired inputs
+        // Using while loop for the desired inputs
         while (true) {
             System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, QUIT): ");
             String action = scanner.next();
@@ -49,6 +55,12 @@ public class Main {
         }
     }
 
+    /**
+     * Adds a contact to the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void addContactToAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
@@ -62,21 +74,31 @@ public class Main {
         }
     }
 
-    private static void addMultipleContactsToAddressBook(Scanner scanner, AddressBookManager addressBookManager){
+    /**
+     * Adds multiple contacts to the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
+    private static void addMultipleContactsToAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.println("Enter the address book name: ");
         String addressBookName = scanner.next();
         AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
 
-        if(addressBook != null){
+        if (addressBook != null) {
             List<Contact> newContacts = createMultipleContactsFromUserInput(scanner);
-
             addressBook.addMultipleContacts(newContacts);
-        }
-        else{
+        } else {
             System.out.println("Address book not found.");
         }
     }
 
+    /**
+     * Edits a contact in the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void editContactInAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
@@ -99,7 +121,12 @@ public class Main {
         }
     }
 
-
+    /**
+     * Deletes a contact from the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void deleteContactInAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
@@ -114,22 +141,34 @@ public class Main {
         }
     }
 
+    /**
+     * Lists all contacts in the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void listContactsInAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
         AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
 
         if (addressBook != null) {
-            List<Contact> contacts = addressBook.listContacts();
-            for (Contact contact : contacts) {
-                System.out.println(contact);
-                System.out.println("----------------------");
-            }
+            addressBook.listContacts().forEach(contact ->{
+                    System.out.println(contact);
+                    System.out.println("----------------------");
+            });
+
         } else {
             System.out.println("Address book not found.");
         }
     }
 
+    /**
+     * Creates a Contact object from user input.
+     *
+     * @param scanner Scanner object for user input.
+     * @return A Contact object created from user input.
+     */
     public static Contact createContactFromUserInput(Scanner scanner) {
         System.out.println("Enter contact details: ");
         System.out.print("First Name: ");
@@ -152,6 +191,12 @@ public class Main {
         return new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
     }
 
+    /**
+     * Creates a list of Contact objects from user input for multiple contacts.
+     *
+     * @param scanner Scanner object for user input.
+     * @return A list of Contact objects created from user input.
+     */
     private static List<Contact> createMultipleContactsFromUserInput(Scanner scanner) {
         System.out.println("Enter details for multiple contacts. Enter 'DONE' when finished.");
         List<Contact> newContacts = new ArrayList<>();
@@ -170,5 +215,4 @@ public class Main {
 
         return newContacts;
     }
-
 }

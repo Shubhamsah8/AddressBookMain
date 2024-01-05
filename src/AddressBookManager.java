@@ -1,32 +1,45 @@
-
-
 import java.util.*;
+
+/**
+ * Manages multiple AddressBook objects and provides operations for handling them.
+ */
 class AddressBookManager {
-    //declaring the variables
+    // Declaring the variables
     private Map<String, AddressBook> addressBooks;
 
-    //Constructor
+    /**
+     * Constructor to initialize an AddressBookManager object with an empty map.
+     */
     public AddressBookManager() {
         this.addressBooks = new HashMap<>();
     }
 
-    // Method to put things in address book with name
+    /**
+     * Adds a new AddressBook with the specified name to the manager.
+     *
+     * @param name The name of the new AddressBook.
+     */
     public void addAddressBook(String name) {
-        if (!addressBooks.containsKey(name)) {
-            AddressBook addressBook = new AddressBook(name);
-            addressBooks.put(name, addressBook);
+        if (addressBooks.putIfAbsent(name, new AddressBook(name)) == null) {
             System.out.println("Address book '" + name + "' added successfully.");
         } else {
             System.out.println("Address book with the name '" + name + "' already exists.");
         }
     }
 
-    // Getters of return type AddressBook class
+    /**
+     * Retrieves the AddressBook with the specified name from the manager.
+     *
+     * @param name The name of the AddressBook to retrieve.
+     * @return The AddressBook object with the specified name, or null if not found.
+     */
     public AddressBook getAddressBook(String name) {
         return addressBooks.get(name);
     }
 
-    // Method to list the address books
+    /**
+     * Lists all the names of the address books managed by the AddressBookManager.
+     */
     public void listAllAddressBooks() {
         System.out.println("Address Books: " + addressBooks.keySet());
     }
