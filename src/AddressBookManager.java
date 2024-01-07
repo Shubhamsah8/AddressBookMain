@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Manages multiple AddressBook objects and provides operations for handling them.
@@ -27,6 +28,29 @@ class AddressBookManager {
         }
     }
 
+    /**
+     * Retrieves the person by city name
+     * @param city we take city name as argument.
+     * @return the list of contacts by that city name.
+     */
+    public List<Contact> searchContactByCity(String city){
+        return addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.listContacts().stream())
+                .filter(contact -> contact.getCity().equalsIgnoreCase(city))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Retrieves the Person name by state name.
+     * @param state we take state name as argument to search in the addressbook.
+     * @return the list of all the contacts by the state name.
+     */
+    public List<Contact> searchContactByState(String state){
+        return addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.listContacts().stream())
+                .filter(contact -> contact.getState().equalsIgnoreCase(state))
+                .collect(Collectors.toList());
+    }
     /**
      * Retrieves the AddressBook with the specified name from the manager.
      *

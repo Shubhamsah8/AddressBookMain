@@ -15,7 +15,7 @@ public class Main {
 
         // Using while loop for the desired inputs
         while (true) {
-            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, QUIT): ");
+            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, SEARCH_BY_CITY, SEARCH_BY_STATE, QUIT): ");
             String action = scanner.next();
 
             // Switch case
@@ -42,6 +42,26 @@ public class Main {
                     break;
                 case "LIST_ADDRESSBOOKS":
                     addressBookManager.listAllAddressBooks();
+                    break;
+                case "SEARCH_BY_CITY":
+                    System.out.println("Enter the city: ");
+                    String city = scanner.next();
+                    List<Contact> contactInCity = addressBookManager.searchContactByCity(city);
+                    for(Contact contact: contactInCity){
+                        System.out.println(contact);
+                        System.out.println("----------------------------------");
+                    }
+
+                    break;
+                case "SEARCH_BY_STATE":
+                    System.out.println("Enter the state: ");
+                    String state = scanner.next();
+                    List<Contact> contactInState = addressBookManager.searchContactByState(state);
+                    for(Contact contact: contactInState){
+                        System.out.println(contact);
+                        System.out.println("----------------------------------");
+                    }
+
                     break;
                 case "QUIT":
                     System.out.println("Goodbye!");
