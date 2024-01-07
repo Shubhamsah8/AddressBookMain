@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -70,10 +71,23 @@ class AddressBook implements ContactOperations {
             contacts.add(contact);
             addToCityDictionary(contact);
             addToStateDictionary(contact);
+            getSortedContactsByName();                  //It will sort the contact on the spot while adding new contacts.
         }
         else{
             System.out.println("This User name is already exit. Duplicate entry is not allowed!");
         }
+    }
+
+    /**
+     * Retrieves the sorted list of contacts in the address book by person's name.
+     *
+     * @return The sorted list of Contact objects.
+     */
+    public List<Contact> getSortedContactsByName() {
+        return contacts.stream()
+                .sorted(Comparator.comparing(Contact::getFirstName)
+                        .thenComparing(Contact::getLastName))
+                .collect(Collectors.toList());
     }
 
     /**
