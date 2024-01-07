@@ -15,7 +15,7 @@ public class Main {
 
         // Using while loop for the desired inputs
         while (true) {
-            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, SEARCH_BY_CITY, SEARCH_BY_STATE, QUIT): ");
+            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, SEARCH_BY_CITY, SEARCH_BY_STATE, COUNT_BY_CITY, COUNT_BY_STATE, QUIT): ");
             String action = scanner.next();
 
             // Switch case
@@ -63,6 +63,20 @@ public class Main {
                     } else {
                         System.out.println("Contacts in the state '" + state + "': " + contactNamesInState);
                     }
+                    break;
+
+                case "COUNT_BY_CITY":
+                    System.out.println("Enter the city: ");
+                    String countCity = scanner.next();
+                    long contactCountByCity = addressBookManager.countContactPersonsByCity(countCity);
+                    System.out.println("Count of contact persons in the city '" + countCity + "': " + contactCountByCity);
+                    break;
+
+                case "COUNT_BY_STATE":
+                    System.out.println("Enter the state: ");
+                    String countState = scanner.next();
+                    long contactCountByState = addressBookManager.countContactPersonsByState(countState);
+                    System.out.println("Count of contact persons in the state '" + countState + "': " + contactCountByState);
                     break;
 
                 case "QUIT":

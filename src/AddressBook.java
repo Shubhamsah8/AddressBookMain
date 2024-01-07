@@ -190,4 +190,25 @@ class AddressBook implements ContactOperations {
     public List<Contact> findContactsByState(String state) {
         return contactsByState.getOrDefault(state.toLowerCase(), Collections.emptyList());
     }
+
+    /**
+     * Retrieves the count of contacts in the address book by city.
+     *
+     * @param city The city to search for.
+     * @return The count of Contact objects in the specified city.
+     */
+    public long countContactsByCity(String city) {
+        return contactsByCity.getOrDefault(city.toLowerCase(), Collections.emptyList()).size();
+    }
+
+    /**
+     * Retrieves the count of contacts in the address book by state.
+     *
+     * @param state The state to search for.
+     * @return The count of Contact objects in the specified state.
+     */
+    public long countContactsByState(String state) {
+        return contactsByState.getOrDefault(state.toLowerCase(), Collections.emptyList()).size();
+    }
+
 }

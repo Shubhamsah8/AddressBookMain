@@ -55,6 +55,29 @@ class AddressBookManager {
     }
 
     /**
+     * Retrieves the count of contact persons by city name.
+     *
+     * @param city The city name to search for.
+     * @return The count of contact persons in the specified city.
+     */
+    public long countContactPersonsByCity(String city) {
+        return addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.findContactsByCity(city).stream())
+                .count();
+    }
+
+    /**
+     * Retrieves the count of contact persons by state name.
+     *
+     * @param state The state name to search for.
+     * @return The count of contact persons in the specified state.
+     */
+    public long countContactPersonsByState(String state) {
+        return addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.findContactsByState(state).stream())
+                .count();
+    }
+    /**
      * Retrieves the AddressBook with the specified name from the manager.
      *
      * @param name The name of the AddressBook to retrieve.
