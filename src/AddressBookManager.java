@@ -29,28 +29,31 @@ class AddressBookManager {
     }
 
     /**
-     * Retrieves the person by city name
-     * @param city we take city name as argument.
-     * @return the list of contacts by that city name.
+     * Retrieves the Person names by city name.
+     *
+     * @param city The city name to search for.
+     * @return The list of contact names in the specified city.
      */
-    public List<Contact> searchContactByCity(String city){
+    public List<String> searchContactNamesByCity(String city) {
         return addressBooks.values().stream()
-                .flatMap(addressBook -> addressBook.listContacts().stream())
-                .filter(contact -> contact.getCity().equalsIgnoreCase(city))
+                .flatMap(addressBook -> addressBook.findContactsByCity(city).stream())
+                .map(Contact::getFirstName)
                 .collect(Collectors.toList());
     }
 
     /**
-     * Retrieves the Person name by state name.
-     * @param state we take state name as argument to search in the addressbook.
-     * @return the list of all the contacts by the state name.
+     * Retrieves the Person names by state name.
+     *
+     * @param state The state name to search for.
+     * @return The list of contact names in the specified state.
      */
-    public List<Contact> searchContactByState(String state){
+    public List<String> searchContactNamesByState(String state) {
         return addressBooks.values().stream()
-                .flatMap(addressBook -> addressBook.listContacts().stream())
-                .filter(contact -> contact.getState().equalsIgnoreCase(state))
+                .flatMap(addressBook -> addressBook.findContactsByState(state).stream())
+                .map(Contact::getFirstName)
                 .collect(Collectors.toList());
     }
+
     /**
      * Retrieves the AddressBook with the specified name from the manager.
      *

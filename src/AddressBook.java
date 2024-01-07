@@ -44,6 +44,8 @@ class AddressBook implements ContactOperations {
     // Initialize the variables
     private String name;
     private List<Contact> contacts;
+    private Map<String, List<Contact>> contactsByCity;
+    private Map<String, List<Contact>> contactsByState;
 
     /**
      * Constructor to initialize an AddressBook object with the specified name.
@@ -53,6 +55,8 @@ class AddressBook implements ContactOperations {
     public AddressBook(String name) {
         this.name = name;
         this.contacts = new ArrayList<>();
+        this.contactsByCity = new HashMap<>();
+        this.contactsByState = new HashMap<>();
     }
 
     /**
@@ -64,6 +68,8 @@ class AddressBook implements ContactOperations {
     public void addContact(Contact contact) {
         if(!contacts.contains(contact)){
             contacts.add(contact);
+            addToCityDictionary(contact);
+            addToStateDictionary(contact);
         }
         else{
             System.out.println("This User name is already exit. Duplicate entry is not allowed!");
@@ -145,5 +151,43 @@ class AddressBook implements ContactOperations {
      */
     public List<Contact> listContacts() {
         return new ArrayList<>(contacts);
+    }
+
+    /**
+     * Adds a contact to the city dictionary.
+     *
+     * @param contact The Contact object to be added.
+     */
+    private void addToCityDictionary(Contact contact) {
+        contactsByCity.computeIfAbsent(contact.getCity().toLowerCase(), key -> new ArrayList<>()).add(contact);
+    }
+
+    /**
+     * Adds a contact to the state dictionary.
+     *
+     * @param contact The Contact object to be added.
+     */
+    private void addToStateDictionary(Contact contact) {
+        contactsByState.computeIfAbsent(contact.getState().toLowerCase(), key -> new ArrayList<>()).add(contact);
+    }
+
+    /**
+     * Retrieves contacts in the address book by city.
+     *
+     * @param city The city to search for.
+     * @return The list of Contact objects in the specified city.
+     */
+    public List<Contact> findContactsByCity(String city) {
+        return contactsByCity.getOrDefault(city.toLowerCase(), Collections.emptyList());
+    }
+
+    /**
+     * Retrieves contacts in the address book by state.
+     *
+     * @param state The state to search for.
+     * @return The list of Contact objects in the specified state.
+     */
+    public List<Contact> findContactsByState(String state) {
+        return contactsByState.getOrDefault(state.toLowerCase(), Collections.emptyList());
     }
 }

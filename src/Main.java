@@ -46,28 +46,31 @@ public class Main {
                 case "SEARCH_BY_CITY":
                     System.out.println("Enter the city: ");
                     String city = scanner.next();
-                    List<Contact> contactInCity = addressBookManager.searchContactByCity(city);
-                    for(Contact contact: contactInCity){
-                        System.out.println(contact);
-                        System.out.println("----------------------------------");
+                    List<String> contactNamesInCity = addressBookManager.searchContactNamesByCity(city);
+                    if (contactNamesInCity.isEmpty()) {
+                        System.out.println("No contacts found in the specified city.");
+                    } else {
+                        System.out.println("Contacts in the city '" + city + "': " + contactNamesInCity);
                     }
-
                     break;
+
                 case "SEARCH_BY_STATE":
                     System.out.println("Enter the state: ");
                     String state = scanner.next();
-                    List<Contact> contactInState = addressBookManager.searchContactByState(state);
-                    for(Contact contact: contactInState){
-                        System.out.println(contact);
-                        System.out.println("----------------------------------");
+                    List<String> contactNamesInState = addressBookManager.searchContactNamesByState(state);
+                    if (contactNamesInState.isEmpty()) {
+                        System.out.println("No contacts found in the specified state.");
+                    } else {
+                        System.out.println("Contacts in the state '" + state + "': " + contactNamesInState);
                     }
-
                     break;
+
                 case "QUIT":
                     System.out.println("Goodbye!");
                     scanner.close();  // Close the Scanner before exiting
                     System.exit(0);
                     break;
+
                 default:
                     System.out.println("Invalid action. Please try again.");
                     break;
