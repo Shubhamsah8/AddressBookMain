@@ -91,6 +91,42 @@ class AddressBook implements ContactOperations {
     }
 
     /**
+     * Sorts the contacts in the address book alphabetically by city.
+     */
+    public void sortContactsByCity() {
+        contacts = contacts.stream()
+                .sorted(Comparator.comparing(Contact::getCity)
+                        .thenComparing(Contact::getFirstName)
+                        .thenComparing(Contact::getLastName))
+                .collect(Collectors.toList());
+        System.out.println("Contacts sorted by city.");
+    }
+
+    /**
+     * Sorts the contacts in the address book alphabetically by state.
+     */
+    public void sortContactsByState() {
+        contacts = contacts.stream()
+                .sorted(Comparator.comparing(Contact::getState)
+                        .thenComparing(Contact::getFirstName)
+                        .thenComparing(Contact::getLastName))
+                .collect(Collectors.toList());
+        System.out.println("Contacts sorted by state.");
+    }
+
+    /**
+     * Sorts the contacts in the address book alphabetically by ZIP code.
+     */
+    public void sortContactsByZip() {
+        contacts = contacts.stream()
+                .sorted(Comparator.comparing(Contact::getZip)
+                        .thenComparing(Contact::getFirstName)
+                        .thenComparing(Contact::getLastName))
+                .collect(Collectors.toList());
+        System.out.println("Contacts sorted by ZIP code.");
+    }
+
+    /**
      * Edits an existing contact in the address book.
      *
      * @param name       The name of the contact to be edited.

@@ -15,7 +15,7 @@ public class Main {
 
         // Using while loop for the desired inputs
         while (true) {
-            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, SEARCH_BY_CITY, SEARCH_BY_STATE, COUNT_BY_CITY, COUNT_BY_STATE, QUIT): ");
+            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, SEARCH_BY_CITY, SEARCH_BY_STATE, COUNT_BY_CITY, COUNT_BY_STATE, SORT_BY_CITY, SORT_BY_STATE, SORT_BY_ZIP, QUIT): ");
             String action = scanner.next();
 
             // Switch case
@@ -79,6 +79,45 @@ public class Main {
                     System.out.println("Count of contact persons in the state '" + countState + "': " + contactCountByState);
                     break;
 
+                case "SORT_BY_CITY":
+                    System.out.print("Enter address book name: ");
+                    String sortCityAddressBookName = scanner.next();
+                    AddressBook sortCityAddressBook = addressBookManager.getAddressBook(sortCityAddressBookName);
+
+                    if (sortCityAddressBook != null) {
+                        sortCityAddressBook.sortContactsByCity();
+                        displaySortedContacts(sortCityAddressBook);
+                    } else {
+                        System.out.println("Address book not found.");
+                    }
+                    break;
+
+                case "SORT_BY_STATE":
+                    System.out.print("Enter address book name: ");
+                    String sortStateAddressBookName = scanner.next();
+                    AddressBook sortStateAddressBook = addressBookManager.getAddressBook(sortStateAddressBookName);
+
+                    if (sortStateAddressBook != null) {
+                        sortStateAddressBook.sortContactsByState();
+                        displaySortedContacts(sortStateAddressBook);
+                    } else {
+                        System.out.println("Address book not found.");
+                    }
+                    break;
+
+                case "SORT_BY_ZIP":
+                    System.out.print("Enter address book name: ");
+                    String sortZipAddressBookName = scanner.next();
+                    AddressBook sortZipAddressBook = addressBookManager.getAddressBook(sortZipAddressBookName);
+
+                    if (sortZipAddressBook != null) {
+                        sortZipAddressBook.sortContactsByZip();
+                        displaySortedContacts(sortZipAddressBook);
+                    } else {
+                        System.out.println("Address book not found.");
+                    }
+                    break;
+
                 case "QUIT":
                     System.out.println("Goodbye!");
                     scanner.close();  // Close the Scanner before exiting
@@ -90,7 +129,10 @@ public class Main {
                     break;
             }
         }
+
     }
+
+
 
     /**
      * Adds a contact to the specified address book.
@@ -126,6 +168,23 @@ public class Main {
         }
     }
 
+    /**
+     * Displays the sorted contacts in the specified address book.
+     *
+     * @param addressBook The AddressBook object.
+     */
+    private static void displaySortedContacts(AddressBook addressBook){
+        List<Contact> sortedContacts = addressBook.listContacts();
+        if(sortedContacts.isEmpty()){
+            System.out.println("No contacts in the address book");
+        }
+        else{
+            sortedContacts.forEach(contact -> {
+                System.out.println(contact);
+                System.out.println("-----------------------------");
+            });
+        }
+    }
     /**
      * Adds multiple contacts to the specified address book.
      *
