@@ -1,15 +1,21 @@
 import java.util.*;
 
-
+/**
+ * The main class that serves as the entry point for the address book application.
+ */
 public class Main {
+    /**
+     * The main method that initiates the address book application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AddressBookManager addressBookManager = new AddressBookManager();
 
-
-        //Using while loop for the desired inputs
+        // Using while loop for the desired inputs
         while (true) {
-            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, QUIT): ");
+            System.out.println("Enter action (ADD_ADDRESSBOOK, ADD_CONTACT, ADD_MULTIPLE, EDIT_CONTACT, DELETE_CONTACT, LIST_CONTACTS, LIST_ADDRESSBOOKS, SEARCH_BY_CITY, SEARCH_BY_STATE, COUNT_BY_CITY, COUNT_BY_STATE, SORT_BY_CITY, SORT_BY_STATE, SORT_BY_ZIP, QUIT): ");
             String action = scanner.next();
 
             // Switch case
@@ -37,46 +43,173 @@ public class Main {
                 case "LIST_ADDRESSBOOKS":
                     addressBookManager.listAllAddressBooks();
                     break;
+                case "SEARCH_BY_CITY":
+                    System.out.println("Enter the city: ");
+                    String city = scanner.next();
+                    List<String> contactNamesInCity = addressBookManager.searchContactNamesByCity(city);
+                    if (contactNamesInCity.isEmpty()) {
+                        System.out.println("No contacts found in the specified city.");
+                    } else {
+                        System.out.println("Contacts in the city '" + city + "': " + contactNamesInCity);
+                    }
+                    break;
+
+                case "SEARCH_BY_STATE":
+                    System.out.println("Enter the state: ");
+                    String state = scanner.next();
+                    List<String> contactNamesInState = addressBookManager.searchContactNamesByState(state);
+                    if (contactNamesInState.isEmpty()) {
+                        System.out.println("No contacts found in the specified state.");
+                    } else {
+                        System.out.println("Contacts in the state '" + state + "': " + contactNamesInState);
+                    }
+                    break;
+
+                case "COUNT_BY_CITY":
+                    System.out.println("Enter the city: ");
+                    String countCity = scanner.next();
+                    long contactCountByCity = addressBookManager.countContactPersonsByCity(countCity);
+                    System.out.println("Count of contact persons in the city '" + countCity + "': " + contactCountByCity);
+                    break;
+
+                case "COUNT_BY_STATE":
+                    System.out.println("Enter the state: ");
+                    String countState = scanner.next();
+                    long contactCountByState = addressBookManager.countContactPersonsByState(countState);
+                    System.out.println("Count of contact persons in the state '" + countState + "': " + contactCountByState);
+                    break;
+
+                case "SORT_BY_CITY":
+                    System.out.print("Enter address book name: ");
+                    String sortCityAddressBookName = scanner.next();
+                    AddressBook sortCityAddressBook = addressBookManager.getAddressBook(sortCityAddressBookName);
+
+                    if (sortCityAddressBook != null) {
+                        sortCityAddressBook.sortContactsByCity();
+                        displaySortedContacts(sortCityAddressBook);
+                    } else {
+                        System.out.println("Address book not found.");
+                    }
+                    break;
+
+                case "SORT_BY_STATE":
+                    System.out.print("Enter address book name: ");
+                    String sortStateAddressBookName = scanner.next();
+                    AddressBook sortStateAddressBook = addressBookManager.getAddressBook(sortStateAddressBookName);
+
+                    if (sortStateAddressBook != null) {
+                        sortStateAddressBook.sortContactsByState();
+                        displaySortedContacts(sortStateAddressBook);
+                    } else {
+                        System.out.println("Address book not found.");
+                    }
+                    break;
+
+                case "SORT_BY_ZIP":
+                    System.out.print("Enter address book name: ");
+                    String sortZipAddressBookName = scanner.next();
+                    AddressBook sortZipAddressBook = addressBookManager.getAddressBook(sortZipAddressBookName);
+
+                    if (sortZipAddressBook != null) {
+                        sortZipAddressBook.sortContactsByZip();
+                        displaySortedContacts(sortZipAddressBook);
+                    } else {
+                        System.out.println("Address book not found.");
+                    }
+                    break;
+
                 case "QUIT":
                     System.out.println("Goodbye!");
                     scanner.close();  // Close the Scanner before exiting
                     System.exit(0);
                     break;
+
                 default:
                     System.out.println("Invalid action. Please try again.");
                     break;
             }
         }
+
     }
 
+
+
+    /**
+     * Adds a contact to the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void addContactToAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
         AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
 
         if (addressBook != null) {
-            Contact contact = createContactFromUserInput(scanner);
-            addressBook.addContact(contact);
+            Scanner newScanner = new Scanner(System.in);
+            System.out.println("Enter your first name: ");
+            String fname = newScanner.next();
+            System.out.println("Enter you last name: ");
+            String lname = newScanner.next();
+
+            Contact existingContact = addressBook.findContactByName(fname.toUpperCase());
+            Contact existingContact1 = addressBook.findContactByName(lname.toUpperCase());
+
+            if(existingContact == null && existingContact1 == null){
+                Contact contact = createContactFromUserInput(scanner);
+                addressBook.addContact(contact);
+            }
+            else{
+                System.out.println("Contact is already exist. Duplicate entry is not allowed!");
+            }
+
         } else {
             System.out.println("Address book not found.");
         }
     }
 
-    private static void addMultipleContactsToAddressBook(Scanner scanner, AddressBookManager addressBookManager){
+    /**
+     * Displays the sorted contacts in the specified address book.
+     *
+     * @param addressBook The AddressBook object.
+     */
+    private static void displaySortedContacts(AddressBook addressBook){
+        List<Contact> sortedContacts = addressBook.listContacts();
+        if(sortedContacts.isEmpty()){
+            System.out.println("No contacts in the address book");
+        }
+        else{
+            sortedContacts.forEach(contact -> {
+                System.out.println(contact);
+                System.out.println("-----------------------------");
+            });
+        }
+    }
+    /**
+     * Adds multiple contacts to the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
+    private static void addMultipleContactsToAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.println("Enter the address book name: ");
         String addressBookName = scanner.next();
         AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
 
-        if(addressBook != null){
+        if (addressBook != null) {
             List<Contact> newContacts = createMultipleContactsFromUserInput(scanner);
-
             addressBook.addMultipleContacts(newContacts);
-        }
-        else{
+        } else {
             System.out.println("Address book not found.");
         }
     }
 
+    /**
+     * Edits a contact in the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void editContactInAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
@@ -99,7 +232,12 @@ public class Main {
         }
     }
 
-
+    /**
+     * Deletes a contact from the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void deleteContactInAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
@@ -114,22 +252,34 @@ public class Main {
         }
     }
 
+    /**
+     * Lists all contacts in the specified address book.
+     *
+     * @param scanner            Scanner object for user input.
+     * @param addressBookManager AddressBookManager object to manage address books.
+     */
     private static void listContactsInAddressBook(Scanner scanner, AddressBookManager addressBookManager) {
         System.out.print("Enter address book name: ");
         String addressBookName = scanner.next();
         AddressBook addressBook = addressBookManager.getAddressBook(addressBookName);
 
         if (addressBook != null) {
-            List<Contact> contacts = addressBook.listContacts();
-            for (Contact contact : contacts) {
+            addressBook.listContacts().forEach(contact ->{
                 System.out.println(contact);
                 System.out.println("----------------------");
-            }
+            });
+
         } else {
             System.out.println("Address book not found.");
         }
     }
 
+    /**
+     * Creates a Contact object from user input.
+     *
+     * @param scanner Scanner object for user input.
+     * @return A Contact object created from user input.
+     */
     public static Contact createContactFromUserInput(Scanner scanner) {
         System.out.println("Enter contact details: ");
         System.out.print("First Name: ");
@@ -149,9 +299,15 @@ public class Main {
         System.out.print("Email: ");
         String email = scanner.next();
 
-        return new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+        return new Contact(firstName.toUpperCase(), lastName.toUpperCase(), address, city, state, zip, phoneNumber, email);
     }
 
+    /**
+     * Creates a list of Contact objects from user input for multiple contacts.
+     *
+     * @param scanner Scanner object for user input.
+     * @return A list of Contact objects created from user input.
+     */
     private static List<Contact> createMultipleContactsFromUserInput(Scanner scanner) {
         System.out.println("Enter details for multiple contacts. Enter 'DONE' when finished.");
         List<Contact> newContacts = new ArrayList<>();
@@ -170,5 +326,4 @@ public class Main {
 
         return newContacts;
     }
-
 }
